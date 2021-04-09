@@ -1,7 +1,5 @@
 package com.leetcode.practice.solutions;
 
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
-
 import java.util.Arrays;
 
 public class Solution1033 {

@@ -8,20 +8,35 @@ import java.util.List;
 public class Solution160 {
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        List<ListNode> routeA = new ArrayList<>();
-        ListNode focusNode = headA;
-        while (focusNode != null) {
-            routeA.add(focusNode);
-            focusNode = focusNode.next;
+        if (headA == null || headB == null) {
+            return null;
         }
-        focusNode = headB;
-        while (focusNode != null) {
-            if (routeA.contains(focusNode)) {
-                return focusNode;
-            } else {
-                focusNode = focusNode.next;
+        ListNode focusA = headA;
+        boolean nodeAHasRouteToB = false;
+        ListNode focusB = headB;
+        boolean nodeBHasRouteToA = false;
+        while (true) {
+            if (focusA == null) {
+                if (!nodeAHasRouteToB) {
+                    nodeAHasRouteToB = true;
+                    focusA = headB;
+                } else {
+                    return null;
+                }
             }
+            if (focusB == null) {
+                if (!nodeBHasRouteToA) {
+                    nodeBHasRouteToA = true;
+                    focusB = headA;
+                } else {
+                    return null;
+                }
+            }
+            if (focusA == focusB) {
+                return focusA;
+            }
+            focusA = focusA.next;
+            focusB = focusB.next;
         }
-        return null;
     }
 }

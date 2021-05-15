@@ -1,7 +1,7 @@
 package com.leetcode.practice.solutions;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Solution3 {
 
@@ -10,35 +10,33 @@ public class Solution3 {
         if (size <= 0) {
             return 0;
         }
-        Map<Character, Integer> count = new HashMap<>();
+        Set<Character> history = new HashSet<>();
         int maxLen = 1;
         int start = 0;
         int end = 0;
         int len = 1;
-        for (start = 0; start < size - 1; start ++) {
+        char[] chars = s.toCharArray();
+        for (; start < chars.length - 1; start ++) {
             if (start > 0) {
-                Integer historyCount = count.get(s.charAt(start - 1));
-                if (historyCount != null && historyCount > 0) {
-                    count.put(s.charAt(start - 1), historyCount - 1);
-                } else {
-                    count.put(s.charAt(start - 1), 0);
-                }
+                history.remove(chars[start - 1]);
             }
-            for (; end < size; end ++) {
-                Integer historyCount = count.get(s.charAt(end));
-                if (historyCount != null && historyCount > 0) {
+            if (maxLen >= chars.length - start) {
+                break;
+            }
+            for (; end < chars.length; end ++) {
+                if (history.contains(chars[end])) {
                     len = end - start;
                     break;
                 } else {
                     len = end - start + 1;
-                    count.put(s.charAt(end), 1);
+                    history.add(chars[end]);
                 }
             }
             if (len > maxLen) {
                 maxLen = len;
             }
-        }
 
+        }
         return maxLen;
     }
 }

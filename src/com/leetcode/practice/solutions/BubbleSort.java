@@ -1,24 +1,27 @@
 package com.leetcode.practice.solutions;
 
+import java.util.Arrays;
+
 public class BubbleSort {
 
-    public static void sort(int[] a) {
-        int size = a.length;
-        if (size < 2) {
-            return;
-        }
-        int focus;
-        for (int i = 1; i < size; i ++) {
-            focus = a[i];
-            for (int j = i - 1; j >= 0; j --) {
-                if (a[j] > focus) {
-                    a[j + 1] = a[j];
-                    a[j] = focus;
-                } else {
-                    break;
+
+    public static void main(String[] args) {
+        int[] nums = new int[] {2, 45, 1231, 213, 33, 55, 221231, 100000};
+        sort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static void sort(int[] nums) {
+        int temp;
+        for (int i = 0; i < nums.length; i ++) {
+            for (int j = 0; j < nums.length - 1; j ++) {
+                if (nums[j] > nums[j + 1]) {
+                    temp = nums[j];
+                    nums[j] = nums[j + 1];
+                    nums[j] = temp;
                 }
             }
-
         }
     }
+
 }

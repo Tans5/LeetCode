@@ -14,43 +14,40 @@ public class SolutionOffer45 {
             if (n1.intValue() == n2.intValue()) {
                 return 0;
             }
-            int[] na1 = slipNum(n1);
-            int[] na2 = slipNum(n2);
-            if (combineNum(na1, na2) > combineNum(na2, na1)) {
-                return -1;
-            } else {
+            if (compare(n1, n2)) {
                 return 1;
+            } else {
+                return -1;
             }
         });
         for (int num: nums2) {
             result.append(num);
         }
-
         return result.toString();
     }
 
-    public static int[] slipNum(int n) {
-        int size = ((Integer) n).toString().length();
-        int[] result = new int[size];
-        int nextSize = size;
-        while (nextSize > 0) {
-            int c = ((int) Math.pow(10, nextSize - 1));
-            int num = n / c;
-            n = n - num * c;
-            result[size - nextSize] = num;
-            nextSize --;
+    public static boolean compare(int num1, int num2) {
+        String s1 = num1 + "" + num2;
+        String s2 = num2 + "" + num1;
+        if (s1.length() > s2.length()) {
+            return true;
         }
+        if (s2.length() > s1.length()) {
+            return false;
+        }
+        char[] chars1 = s1.toCharArray();
+        char[] chars2 = s2.toCharArray();
+        for (int i = 0; i < chars1.length; i ++) {
+            if (chars1[i] == chars2[i]) {
+                continue;
+            }
+            if (chars1[i] > chars2[i]) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 
-        return result;
-    }
-    public static int combineNum(int[] start, int[] end) {
-        int[] newArray = new int[start.length + end.length];
-        System.arraycopy(start, 0, newArray, 0, start.length);
-        System.arraycopy(end, 0, newArray, start.length, end.length);
-        int result = 0;
-        for (int i = 0; i < newArray.length; i ++) {
-            result += newArray[i] * (int) Math.pow(10, newArray.length - i - 1);
-        }
-        return result;
-    }
 }

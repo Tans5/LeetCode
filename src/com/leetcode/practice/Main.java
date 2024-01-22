@@ -3,8 +3,13 @@ package com.leetcode.practice;
 
 import com.leetcode.practice.solutions.*;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Solution494.findTargetSumWays(new int[] {1, 1, 1, 1, 1}, 3));
+        Solution18 solution18 = new Solution18();
+        int[] array = new int[] {1,0,-1,0,-2,2};
+        List<List<Integer>> result = solution18.fourSum(array, 0);
+        System.out.println("" + result);
     }
 }

@@ -21,6 +21,7 @@ public class Solution239 {
         result[0] = queue.peek()[0];
         for (int i = k; i < size; i ++) {
             queue.offer(new Integer[] {nums[i], i});
+            // 保证当前窗口的内的最大值，超过当前的 index 移除。
             while (queue.peek()[1] <= i - k) {
                 queue.poll();
             }

@@ -6,13 +6,8 @@ import com.leetcode.practice.solutions.*;
 
 public class Main {
     public static void main(String[] args) {
-        Solution207 s = new Solution207();
-        boolean result = s.canFinish(5, new int[][]{
-                new int[] {1,0},
-                new int[] {1,2},
-                new int[] {0,1},
-                new int[] {3,2},
-        });
+        Solution394 s = new Solution394();
+        String result = s.decodeString("100[ab]");
         System.out.println(result);
     }
 }

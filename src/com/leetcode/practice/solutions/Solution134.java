@@ -11,7 +11,7 @@ public class Solution134 {
             return - 1;
         }
         int oil = 0;
-        for (int startIndex = 0; startIndex < size; startIndex ++) {
+        for (int startIndex = 0; startIndex < size;) {
             oil = gas[startIndex];
             for (int times = 1; times <= size; times ++) {
                 int nextIndex = (startIndex + times) % size;
@@ -25,6 +25,7 @@ public class Solution134 {
                         return startIndex;
                     }
                 } else {
+                    startIndex = startIndex + times;
                     break;
                 }
             }

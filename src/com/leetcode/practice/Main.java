@@ -1,23 +1,16 @@
 package com.leetcode.practice;
 
 
-import com.leetcode.practice.solutions.*;
-import com.leetcode.practice.solutions.others.ListNode;
-
+import com.leetcode.practice.solutions.others.TreeNode;
+import com.leetcode.practice.solutions.tree.Solution1382;
 
 public class Main {
     public static void main(String[] args) {
-
-        Solution146_2 s = new Solution146_2(2);
-        s.put(1, 1);
-        s.put(2, 2);
-        s.get(1);
-        s.put(3, 3);
-        System.out.println(s.get(2));
-        s.put(4, 4);
-        int a = s.get(1);
-        int b = s.get(3);
-        int c = s.get(4);
-        System.out.println(a);
+        TreeNode node = TreeNode.createTree(
+                new int[] {1, 15, 14, 7, 2, 3, 12, 9, 11, 17},
+                new int[] {1, 2, 3, 7, 9, 11, 12, 14, 15, 17});
+        Solution1382 s = new Solution1382();
+        node = s.balanceBST(node);
+        TreeNode.printTree(node);
     }
 }

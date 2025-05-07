@@ -1,16 +1,20 @@
 package com.leetcode.practice;
 
 
-import com.leetcode.practice.solutions.others.TreeNode;
-import com.leetcode.practice.solutions.tree.Solution1382;
+import com.leetcode.practice.solutions.heap.MyPriorityQueue;
 
 public class Main {
     public static void main(String[] args) {
-        TreeNode node = TreeNode.createTree(
-                new int[] {1, 15, 14, 7, 2, 3, 12, 9, 11, 17},
-                new int[] {1, 2, 3, 7, 9, 11, 12, 14, 15, 17});
-        Solution1382 s = new Solution1382();
-        node = s.balanceBST(node);
-        TreeNode.printTree(node);
+        MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>((a, b) -> b - a);
+        priorityQueue.push(3);
+        priorityQueue.push(5);
+        priorityQueue.push(4);
+        priorityQueue.push(6);
+        priorityQueue.push(2);
+        priorityQueue.push(1);
+        priorityQueue.push(2333);
+        while (!priorityQueue.isEmpty()) {
+            System.out.println(priorityQueue.pop());
+        }
     }
 }

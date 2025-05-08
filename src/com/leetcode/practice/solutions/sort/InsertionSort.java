@@ -16,17 +16,18 @@ public class InsertionSort {
             return;
         }
         int toInsert;
-        for (int i = 1; i < size; i ++) {
-            toInsert = nums[i];
-            int j = i;
-            while (j > 0) {
-                if (nums[j] < toInsert) {
+        for (int sortedSize = 1; sortedSize < size; sortedSize ++) {
+            toInsert = nums[sortedSize];
+            int i = sortedSize - 1;
+            do {
+                if (nums[i] <= toInsert) {
                     break;
                 }
-                j --;
-                nums[j + 1] = nums[j];
-            }
-            nums[j + 1] = toInsert;
+                nums[i + 1] = nums[i];
+                i --;
+            } while (i >= 0);
+            i ++;
+            nums[i] = toInsert;
         }
     }
 }

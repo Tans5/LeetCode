@@ -1,20 +1,19 @@
 package com.leetcode.practice;
 
 
-import com.leetcode.practice.solutions.heap.MyPriorityQueue;
+import com.leetcode.practice.solutions.divideandconquer.Solution95;
+import com.leetcode.practice.solutions.others.TreeNode;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>((a, b) -> b - a);
-        priorityQueue.push(3);
-        priorityQueue.push(5);
-        priorityQueue.push(4);
-        priorityQueue.push(6);
-        priorityQueue.push(2);
-        priorityQueue.push(1);
-        priorityQueue.push(2333);
-        while (!priorityQueue.isEmpty()) {
-            System.out.println(priorityQueue.pop());
+        Solution95 s = new Solution95();
+        List<TreeNode> result = s.generateTrees(4);
+        for(TreeNode tree: result) {
+            System.out.println("-------------");
+            TreeNode.printTree(tree);
+            System.out.println("-------------");
         }
     }
 }

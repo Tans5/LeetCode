@@ -1,19 +1,12 @@
 package com.leetcode.practice;
 
 
-import com.leetcode.practice.solutions.divideandconquer.Solution95;
-import com.leetcode.practice.solutions.others.TreeNode;
-
-import java.util.List;
+import com.leetcode.practice.solutions.divideandconquer.SolutionOffer51;
 
 public class Main {
     public static void main(String[] args) {
-        Solution95 s = new Solution95();
-        List<TreeNode> result = s.generateTrees(4);
-        for(TreeNode tree: result) {
-            System.out.println("-------------");
-            TreeNode.printTree(tree);
-            System.out.println("-------------");
-        }
+        SolutionOffer51 s = new SolutionOffer51();
+        int r = s.reversePairs(new int[] {7,5,6,4});
+        System.out.println(r);
     }
 }

@@ -1,12 +1,13 @@
 package com.leetcode.practice;
 
+import com.leetcode.practice.solutions.backtracking.Solution216;
 
-import com.leetcode.practice.solutions.divideandconquer.SolutionOffer51;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        SolutionOffer51 s = new SolutionOffer51();
-        int r = s.reversePairs(new int[] {7,5,6,4});
-        System.out.println(r);
+        Solution216 s = new Solution216();
+        List<List<Integer>> ret = s.combinationSum3(3, 9);
+        System.out.println(ret);
     }
 }

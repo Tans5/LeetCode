@@ -28,4 +28,22 @@ public class ListNode {
         }
         return head;
     }
+
+    public static void printNode(ListNode root) {
+        if (root == null) {
+            return;
+        }
+        StringBuilder str = new StringBuilder();
+        ListNode p = null;
+        ListNode c = root;
+        do {
+            if (p != null) {
+                str.append(" -> ");
+            }
+            str.append(c.val);
+            p = c;
+            c = c.next;
+        } while(c != null);
+        System.out.println(str);
+    }
 }

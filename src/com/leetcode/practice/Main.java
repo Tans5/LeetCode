@@ -1,14 +1,12 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.backtracking.Solution22;
 
-import java.util.List;
-
+import com.leetcode.practice.solutions.dynamicprograming.Solution1143;
 
 public class Main {
     public static void main(String[] args) {
-        Solution22 s = new Solution22();
-        List<String> result = s.generateParenthesis(3);
-        System.out.println(result);
+        Solution1143 s = new Solution1143();
+        int a = s.longestCommonSubsequence("aaa", "aaaa");
+        System.out.println(a);
     }
 }

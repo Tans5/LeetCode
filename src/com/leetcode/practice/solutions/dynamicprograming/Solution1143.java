@@ -38,30 +38,16 @@ public class Solution1143 {
         }
         char[] chars1 = text1.toCharArray();
         char[] chars2 = text2.toCharArray();
-        int[][] dp = new int[chars1.length][chars2.length];
-        for (int i = 0; i < chars1.length; i ++) {
-            for (int j = 0; j < chars2.length; j ++) {
-                int pi = i - 1;
-                int pj = j - 1;
-                if (chars1[i] == chars2[j]) {
-                    if (pi < 0 || pj < 0) {
-                        dp[i][j] = 1;
-                    } else {
-                        dp[i][j] = dp[pi][pj] + 1;
-                    }
+        int[][] dp = new int[chars1.length + 1][chars2.length + 1];
+        for (int i = 1; i <= chars1.length; i ++) {
+            for (int j = 1; j <= chars2.length; j ++) {
+                if (chars1[i - 1] == chars2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    if (pi < 0 && pj < 0) {
-                        dp[i][j] = 0;
-                    } else if (pi >= 0 && pj < 0) {
-                        dp[i][j] = dp[pi][j];
-                    } else if (pj >= 0 && pi < 0) {
-                        dp[i][j] = dp[i][pj];
-                    } else {
-                        dp[i][j] = Math.max(dp[pi][j], dp[i][pj]);
-                    }
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
-        return dp[chars1.length - 1][chars2.length - 1];
+        return dp[chars1.length][chars2.length];
     }
 }

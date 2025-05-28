@@ -1,12 +1,11 @@
 package com.leetcode.practice;
 
-
-import com.leetcode.practice.solutions.dynamicprograming.Solution1143;
+import com.leetcode.practice.solutions.dynamicprograming.Solution312;
 
 public class Main {
     public static void main(String[] args) {
-        Solution1143 s = new Solution1143();
-        int a = s.longestCommonSubsequence("aaa", "aaaa");
-        System.out.println(a);
+        Solution312 s = new Solution312();
+        int coin = s.maxCoins(new int[] {3, 1, 5, 8});
+        System.out.println(coin);
     }
 }

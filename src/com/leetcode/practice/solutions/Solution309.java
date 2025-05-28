@@ -1,6 +1,7 @@
 package com.leetcode.practice.solutions;
 
 public class Solution309 {
+
     public int maxProfit(int[] prices) {
         int len = prices.length;
         if (len == 0) {

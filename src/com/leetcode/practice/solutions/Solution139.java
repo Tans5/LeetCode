@@ -10,7 +10,7 @@ public class Solution139 {
         for (int i = 0; i < wordDict.size(); i ++) {
             words[i] = wordDict.get(i).toCharArray();
         }
-        boolean dp[] = new boolean[chars.length];
+        boolean[] dp = new boolean[chars.length];
         for (int i = 0; i < chars.length; i ++) {
             if (i != 0 && !dp[i - 1]) {
                 continue;

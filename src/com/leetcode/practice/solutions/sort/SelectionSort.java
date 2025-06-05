@@ -11,15 +11,20 @@ public class SelectionSort {
     }
 
     public static void sort(int[] nums) {
-        int min;
-        for (int i = 0; i < nums.length; i ++) {
-            min = nums[i];
-            for (int j = i + 1; j < nums.length; j ++) {
-                if (min > nums[j]) {
-                    min = nums[j];
+        int minIndex;
+        int temp;
+        for (int sortedLen = 0; sortedLen < nums.length; sortedLen ++) {
+            minIndex = sortedLen;
+            for (int i = sortedLen + 1; i < nums.length; i ++) {
+                if (nums[i] < nums[minIndex]) {
+                    minIndex = i;
                 }
             }
-            nums[i] = min;
+            if (minIndex != sortedLen) {
+                temp = nums[sortedLen];
+                nums[sortedLen] = nums[minIndex];
+                nums[minIndex] = temp;
+            }
         }
     }
 

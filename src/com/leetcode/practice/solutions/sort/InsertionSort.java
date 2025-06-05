@@ -19,15 +19,11 @@ public class InsertionSort {
         for (int sortedSize = 1; sortedSize < size; sortedSize ++) {
             toInsert = nums[sortedSize];
             int i = sortedSize - 1;
-            do {
-                if (nums[i] <= toInsert) {
-                    break;
-                }
+            while (i >= 0 && nums[i] > toInsert) {
                 nums[i + 1] = nums[i];
                 i --;
-            } while (i >= 0);
-            i ++;
-            nums[i] = toInsert;
+            }
+            nums[i + 1] = toInsert;
         }
     }
 }

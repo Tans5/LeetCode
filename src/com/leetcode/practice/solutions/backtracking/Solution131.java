@@ -28,9 +28,9 @@ public class Solution131 {
             for (int start = 0; start <= end; start ++) {
                 if (start == end) {
                     dp[start][end] = true;
-                } else if(chars[start] == chars[end] && start + 1 == end) {
+                } else if ((end - start + 1) <= 3 && chars[start] == chars[end]) {
                     dp[start][end] = true;
-                } else if (chars[start] == chars[end] && ((end - start + 1) > 2 && (start + 1) < chars.length) && (end - 1) >= 0 && dp[start + 1][end - 1]) {
+                } else if (dp[start + 1][end - 1] && chars[start] == chars[end]) {
                     dp[start][end] = true;
                 }
             }

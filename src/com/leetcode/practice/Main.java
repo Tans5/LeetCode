@@ -4,15 +4,14 @@ import com.leetcode.practice.solutions.linkedlist.LRUCache;
 import com.leetcode.practice.solutions.linkedlist.Solution2;
 import com.leetcode.practice.solutions.linkedlist.Solution92;
 import com.leetcode.practice.solutions.others.ListNode;
+import com.leetcode.practice.solutions.others.TreeNode;
+import com.leetcode.practice.solutions.tree.Solution105;
+import com.leetcode.practice.solutions.tree.Solution108;
 
 public class Main {
     public static void main(String[] args) {
-        LRUCache cache = new LRUCache(2);
-        cache.put(1, 1);
-        cache.put(2, 2);
-        System.out.println(cache.get(1));
-        cache.put(3, 3);
-        System.out.println(cache.get(2));
-        cache.put(4, 4);
+        Solution108 s = new Solution108();
+        TreeNode node = s.sortedArrayToBST(new int[] {1, 2, 3, 4, 5});
+        TreeNode.printTree(node);
     }
 }

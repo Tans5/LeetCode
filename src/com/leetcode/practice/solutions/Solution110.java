@@ -11,6 +11,7 @@ public class Solution110 {
             return Math.abs(treeDeep(root.left) - treeDeep(root.right)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
         }
     }
+
     int treeDeep(TreeNode root) {
         if (root == null) {
             return 0;

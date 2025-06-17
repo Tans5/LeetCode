@@ -2,8 +2,6 @@ package com.leetcode.practice.solutions.tree;
 
 import com.leetcode.practice.solutions.others.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 /**
  * 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
@@ -16,42 +14,20 @@ import java.util.Deque;
 public class Solution235 {
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        Deque<TreeNode> routeToP = null;
-        Deque<TreeNode> routeToQ = null;
-        TreeNode cursor = root;
-        Deque<TreeNode> route = new ArrayDeque<>();
-        while ((routeToP == null || routeToQ == null) && (cursor != null || !route.isEmpty())) {
-            if (cursor != null) {
-                TreeNode n = cursor;
-                while (n != null) {
-                    route.push(n);
-                    n = n.left;
-                }
-            }
-            TreeNode n = route.pop();
-            if (routeToP == null && n.val == p.val) {
-                // FixMe:
-                routeToP = new ArrayDeque<>(route);
-            }
-            if (routeToQ == null && n.val == q.val) {
-                // FixMe:
-                routeToQ = new ArrayDeque<>(route);
-            }
-            cursor = n.right;
+        if (p.val > q.val) {
+            // 保证 p 的值小于 q 的值
+            return lowestCommonAncestor(root, q, p);
         }
-        if (routeToP == null || routeToQ == null) {
-            return null;
-        }
-        TreeNode prev = root;
-        while (!routeToP.isEmpty() && !routeToQ.isEmpty()) {
-            TreeNode n1 = routeToP.poll();
-            TreeNode n2 = routeToQ.poll();
-            if (n1.val != n2.val) {
+        TreeNode result = root;
+        while (result != null) {
+            if (result.val >= p.val && result.val <= q.val) {
                 break;
+            } else if (result.val < p.val) {
+                result = result.right;
             } else {
-                prev = n1;
+                result = result.left;
             }
         }
-        return prev;
+        return result;
     }
 }

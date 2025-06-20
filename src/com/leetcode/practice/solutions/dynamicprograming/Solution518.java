@@ -49,9 +49,8 @@ public class Solution518 {
         }
         int[] dp = new int[amount + 1];
         dp[0] = 1;
-        for (int i = 1; i <= coins.length; i ++) {
-            int coin = coins[i - 1];
-            for (int a = coin; a <= amount; a ++) {
+        for (int coin : coins) {
+            for (int a = coin; a <= amount; a++) {
                 dp[a] += dp[a - coin];
             }
         }

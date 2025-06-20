@@ -1,7 +1,6 @@
 package com.leetcode.practice.solutions.array;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
@@ -16,38 +15,30 @@ import java.util.HashSet;
  */
 public class Solution128 {
 
+    // 1,0,1,2
     public int longestConsecutive(int[] nums) {
         if (nums.length < 2) {
             return nums.length;
         }
         Arrays.sort(nums);
-        return longest(nums, 0, nums.length - 1);
-    }
-
-    private int longest(int[] nums, int start, int end) {
-        if (start > end) {
-            return 0;
-        }
-
         int longest = 1;
-        int baseNum = nums[start];
-        int baseIndex = start;
-        int lastNum = baseNum;
-        int i = start + 1;
-        for (; i <= end; i ++) {
-            int n = nums[i];
-            if (n == lastNum) {
+        int baseIndex = 0;
+        for (int i = 1; i < nums.length; i ++) {
+            int num = nums[i];
+            int lastNum = nums[i - 1];
+            if (num == lastNum) {
                 baseIndex ++;
                 continue;
             }
-            if (n - baseNum == i - baseIndex) {
-                lastNum = n;
-                longest ++;
-            } else {
-                break;
+            if (lastNum + 1 == num) {
+                if (i - baseIndex + 1 > longest) {
+                    longest = i - baseIndex + 1;
+                }
+                continue;
             }
+            baseIndex = i;
         }
-        return Math.max(longest, longest(nums, i, end));
+        return longest;
     }
 
 }

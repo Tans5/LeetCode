@@ -1,14 +1,12 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.array.Solution438;
-
-import java.util.List;
+import com.leetcode.practice.solutions.greedy.Solution134;
 
 
 public class Main {
     public static void main(String[] args) {
-        Solution438 s = new Solution438();
-        List<Integer> result = s.findAnagrams("baa", "aa");
-        System.out.println(result);
+        Solution134 s = new Solution134();
+        int count = s.canCompleteCircuit(new int[] {2, 3, 4}, new int[] { 3, 4, 3});
+        System.out.println(count);
     }
 }

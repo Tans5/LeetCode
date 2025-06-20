@@ -1,6 +1,8 @@
 package com.leetcode.practice.solutions.dynamicprograming;
 
 
+import java.util.Arrays;
+
 /**
  * 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
  *
@@ -25,58 +27,25 @@ package com.leetcode.practice.solutions.dynamicprograming;
 public class Solution322 {
 
     public int coinChange(int[] coins, int amount) {
-        if (amount <= 0) {
+        if (amount == 0) {
             return 0;
         }
-        if (coins.length == 0) {
-            return -1;
-        }
-        // 如果到 i 对应的硬币，兑换 j 对应的 amount，最小有多少兑换方式
-        int[][] dp = new int[coins.length + 1][amount + 1];
-
-        // 如果 amount 等于 0，则所有选择硬币的兑换方式都是 0
-        for (int i = 1; i <= coins.length; i ++) {
-            dp[i][0] = 0;
-        }
-
-        // 如果不选硬币，则所有的 amount 兑换的方式都是 -1，也就是无法兑换。
-        for (int a = 1; a <= amount; a ++ ) {
-            dp[0][a] = -1;
-            // 初始化 a 能够兑换多少 coin[0]
-            if (a % coins[0] == 0) {
-                // 可以兑换
-                dp[1][a] = a / coins[0];
-            } else {
-                // 无法兑换
-                dp[1][a] = -1;
-            }
-        }
-
-        for (int i = 2; i <= coins.length; i ++) {
-            int coin = coins[i - 1];
-            for (int a = 1; a <= amount; a ++) {
-                if (coin > a) {
-                    // 无法选择 coin 兑换成 a
-                    dp[i][a] = dp[i - 1][a];
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int coin : coins) {
+            for (int cap = coin; cap <= amount; cap++) {
+                if (dp[cap] == -1 && dp[cap - coin] == -1) {
+                    dp[cap] = -1;
+                } else if (dp[cap] == -1) {
+                    dp[cap] = dp[cap - coin] + 1;
+                } else if (dp[cap - coin] == -1) {
+                    dp[cap] = dp[cap];
                 } else {
-                    // 不选择 coin
-                    int t1 = dp[i - 1][a];
-                    // 选择 coin
-                    int t2 = dp[i][a - coin];
-                    if (t2 != -1) {
-                        t2 ++;
-                    }
-                    if (t1 != -1 && t2 != -1) {
-                        dp[i][a] = Math.min(t1, t2);
-                    } else if (t1 != -1) {
-                        dp[i][a] = t1;
-                    } else {
-                        dp[i][a] = t2;
-                    }
+                    dp[cap] = Math.min(dp[cap], dp[cap - coin] + 1);
                 }
             }
         }
-
-        return dp[coins.length][amount];
+        return dp[amount];
     }
 }

@@ -26,32 +26,41 @@ public class Solution438 {
         if (s.length() < p.length() || p.isEmpty()) {
             return result;
         }
-        int[] pCharsUseTimes = new int[26];
-        int[] sCharsUseTimes = new int[26];
-        int windowSize = p.length();
-        for (int i = 0; i < windowSize; i ++) {
-            pCharsUseTimes[p.charAt(i) - 'a'] ++;
-            sCharsUseTimes[s.charAt(i) - 'a'] ++;
-        }
-        if (isSame(pCharsUseTimes, sCharsUseTimes)) {
-            result.add(0);
-        }
-        for (int i = 1; i <= s.length() - windowSize; i ++) {
-            sCharsUseTimes[s.charAt(i - 1) - 'a'] --;
-            sCharsUseTimes[s.charAt(i + windowSize - 1) - 'a'] ++;
-            if (isSame(pCharsUseTimes, sCharsUseTimes)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
+        int[] window = new int[26];
+        int[] targetWindow = new int[26];
 
-    private boolean isSame(int[] array1, int[] array2) {
-        for (int i = 0; i < array1.length; i ++) {
-            if (array1[i] != array2[i]) {
-                return false;
+        for (int i = 0; i < p.length(); i ++) {
+            targetWindow[p.charAt(i) - 'a'] ++;
+        }
+        int targetCharNum = 0;
+        for (int n : targetWindow) {
+            if (n > 0) {
+                targetCharNum++;
             }
         }
-        return true;
+        int left = 0;
+        int right = 0;
+        int charNum = 0;
+        while (left <= right && right < s.length()) {
+            int charIndex = s.charAt(right) - 'a';
+            window[charIndex] ++;
+            if (window[charIndex] == targetWindow[charIndex]) {
+                charNum ++;
+            }
+            while (charNum == targetCharNum && left <= right) {
+                if (right - left + 1 == p.length()) {
+                    result.add(left);
+                }
+                int leftCharIndex = s.charAt(left) - 'a';
+                window[leftCharIndex] --;
+                if (targetWindow[leftCharIndex] != 0 && window[leftCharIndex] < targetWindow[leftCharIndex]) {
+                    charNum --;
+                }
+                left ++;
+            }
+            right ++;
+        }
+
+        return result;
     }
 }

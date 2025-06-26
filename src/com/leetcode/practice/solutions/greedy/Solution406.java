@@ -1,5 +1,9 @@
 package com.leetcode.practice.solutions.greedy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不一定按顺序）。每个 people[i] = [hi, ki] 表示第 i 个人的身高为 hi ，前面 正好 有 ki 个身高大于或等于 hi 的人。
  *
@@ -27,7 +31,36 @@ package com.leetcode.practice.solutions.greedy;
  */
 public class Solution406 {
 
-//    public int[][] reconstructQueue(int[][] people) {
-//
-//    }
+    public int[][] reconstructQueue(int[][] people) {
+        Arrays.sort(people, (a, b) -> {
+            if (a[0] != b[0]) {
+                return b[0] - a[0];
+            } else {
+                return a[1] - b[1];
+            }
+        });
+        int[][] result = null;
+        int[][] temp;
+        for (int[] toInsert : people) {
+            if (result == null) {
+                result = new int[][] {toInsert};
+            } else {
+                int toInsertIndex = toInsert[1];
+                temp = result;
+                result = new int[temp.length + 1][];
+                if (toInsertIndex == 0) {
+                    result[0] = toInsert;
+                    System.arraycopy(temp, 0, result, 1, temp.length);
+                } else if (toInsertIndex == temp.length) {
+                    result[temp.length] = toInsert;
+                    System.arraycopy(temp, 0, result, 0, temp.length);
+                } else {
+                    result[toInsertIndex] = toInsert;
+                    System.arraycopy(temp, 0, result, 0, toInsertIndex);
+                    System.arraycopy(temp, toInsertIndex, result, toInsertIndex + 1, temp.length - toInsertIndex);
+                }
+            }
+        }
+        return result;
+    }
 }

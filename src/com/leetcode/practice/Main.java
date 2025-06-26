@@ -1,12 +1,15 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.greedy.Solution134;
+import com.leetcode.practice.solutions.array.Solution127;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Main {
     public static void main(String[] args) {
-        Solution134 s = new Solution134();
-        int count = s.canCompleteCircuit(new int[] {2, 3, 4}, new int[] { 3, 4, 3});
-        System.out.println(count);
+        Solution127 s = new Solution127();
+        String[] words = new String[] {"hot","dog","dot"};
+        System.out.println(s.ladderLength("hot", "dog",  new ArrayList<>(Arrays.asList(words))));
     }
 }

@@ -1,7 +1,9 @@
 package com.leetcode.practice.solutions.graph;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +33,48 @@ import java.util.Set;
  */
 public class Solution207 {
 
+    // BFS拓扑排序实现（Kahn算法）
     public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // 邻接表
+        List<Integer>[] graph = new ArrayList[numCourses];
+        // 入度
+        int[] inDegree = new int[numCourses];
+        // 被依赖的课程指向依赖的课程
+        for (int[] edge: prerequisites) {
+            inDegree[edge[0]] ++;
+            List<Integer> next = graph[edge[1]];
+            if (next == null) {
+                next = new ArrayList<>();
+                graph[edge[1]] = next;
+            }
+            next.add(edge[0]);
+        }
+        Deque<Integer> toLearn = new LinkedList<>();
+        for (int i = 0; i < inDegree.length; i ++) {
+            if (inDegree[i] == 0) {
+                toLearn.offer(i);
+            }
+        }
+        int complete = 0;
+        while (!toLearn.isEmpty()) {
+            int learned = toLearn.poll();
+            complete ++;
+            List<Integer> next = graph[learned];
+            if (next != null) {
+                for (int neighbor: next) {
+                    inDegree[neighbor] --;
+                    if (inDegree[neighbor] == 0) {
+                        toLearn.offer(neighbor);
+                    }
+                }
+            }
+        }
+        return complete == numCourses;
+    }
+
+
+    // DFS 遍历
+    public boolean canFinish2(int numCourses, int[][] prerequisites) {
         if (prerequisites.length == 0) {
             return true;
         }

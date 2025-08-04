@@ -1,15 +1,24 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.array.Solution127;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.leetcode.practice.solutions.graph.Solution787;
 
 
 public class Main {
     public static void main(String[] args) {
-        Solution127 s = new Solution127();
-        String[] words = new String[] {"hot","dog","dot"};
-        System.out.println(s.ladderLength("hot", "dog",  new ArrayList<>(Arrays.asList(words))));
+        Solution787 s = new Solution787();
+        int ret = s.findCheapestPrice(
+                4,
+                new int[][]{
+                        new int[] {0, 1, 100},
+                        new int[] {1, 2, 100},
+                        new int[] {2, 0, 100},
+                        new int[] {2, 3, 200},
+                        new int[] {1, 3, 600}
+                },
+                0,
+                3,
+                1
+        );
+        System.out.println(ret);
     }
 }

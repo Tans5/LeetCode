@@ -12,13 +12,15 @@ package com.leetcode.practice.solutions.array;
 public class Solution27 {
 
     public int removeElement(int[] nums, int val) {
-        int left = 0;
-        int right = 0;
-        for (;right < nums.length; right ++) {
-            if (nums[right] != val) {
-                nums[left ++] = nums[right];
+        int writeIndex = 0;
+        int readIndex = 0;
+        while (readIndex < nums.length) {
+            if (nums[readIndex] != val) {
+                nums[writeIndex] = nums[readIndex];
+                writeIndex ++;
             }
+            readIndex ++;
         }
-        return left;
+        return writeIndex;
     }
 }

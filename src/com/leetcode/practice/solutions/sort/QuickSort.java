@@ -37,7 +37,7 @@ public class QuickSort {
             while (i < j && nums[j] >= base) {
                 j --;
             }
-            // 将 j 移动到大于 base 的位置
+            // 将 i 移动到大于 base 的位置
             while (i < j && nums[i] <= base) {
                 i ++;
             }

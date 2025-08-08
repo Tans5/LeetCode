@@ -42,6 +42,7 @@ package com.leetcode.practice.solutions.array;
  */
 public class Solution904 {
 
+    // start 到 end 最多 2 种水果，求 end - start 的最大值
     public int totalFruit(int[] fruits) {
         int fruitType = 0;
         int[] fruitTimes = new int[fruits.length];

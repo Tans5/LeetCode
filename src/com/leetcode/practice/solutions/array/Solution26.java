@@ -14,13 +14,15 @@ public class Solution26 {
         if (nums.length <= 1) {
             return nums.length;
         }
-        int left = 1;
-        int right = 1;
-        for (;right < nums.length; right ++) {
-            if (nums[right] != nums[right - 1]) {
-                nums[left ++] = nums[right];
+        int writeIndex = 1;
+        int readIndex = 1;
+        while (readIndex < nums.length) {
+            if (nums[readIndex] != nums[readIndex - 1]) {
+                nums[writeIndex] = nums[readIndex];
+                writeIndex ++;
             }
+            readIndex ++;
         }
-        return left;
+        return writeIndex;
     }
 }

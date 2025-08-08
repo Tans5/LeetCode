@@ -31,7 +31,47 @@ import java.util.Arrays;
  */
 public class Solution992 {
 
+    /**
+     * 恰好 k 种 = 最多 k 种 - 最多 k - 1 种
+     */
     public int subarraysWithKDistinct(int[] nums, int k) {
+        return atMost(nums, k) - atMost(nums, k - 1);
+    }
+
+    /**
+     * 最多 k 种不同的数量
+     */
+    private int atMost(int[] nums, int k) {
+        if (k <= 0) {
+            return 0;
+        }
+        int[] numsCount = new int[nums.length + 1];
+        int types = 0;
+        int start = 0;
+        int end = 0;
+        int res = 0;
+        while (end < nums.length) {
+            int en = nums[end];
+            numsCount[en] ++;
+            if (numsCount[en] == 1) {
+                types ++;
+            }
+            while (start <= end && types > k) {
+                int sn = nums[start];
+                numsCount[sn] --;
+                if (numsCount[sn] == 0) {
+                    types --;
+                }
+                start ++;
+            }
+            // start 到 end 中，以 end 结尾的数组的子数组的数量.
+            res += (end - start + 1);
+            end ++;
+        }
+        return res;
+    }
+
+    public int subarraysWithKDistinct2(int[] nums, int k) {
         int[] numsCount = new int[nums.length + 1];
         int numsType = 0;
         int res = 0;

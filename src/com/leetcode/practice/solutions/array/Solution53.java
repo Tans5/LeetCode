@@ -17,6 +17,7 @@ public class Solution53 {
         int max = nums[0];
         int a = max;
         for (int i = 1; i < nums.length; i ++) {
+            // 以 i 结尾的数组的最大值
             a = Math.max(nums[i], nums[i] + a);
             if (a > max) {
                 max = a;

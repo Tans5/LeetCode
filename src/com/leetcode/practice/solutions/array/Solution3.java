@@ -30,10 +30,10 @@ public class Solution3 {
         int right = 0;
         for (; right < s.length(); right ++) {
             char c = s.charAt(right);
-            if (charIndex[c] == -1 || charIndex[c] < left) {
+            if (charIndex[c] == -1 || charIndex[c] < left) { // left 后面没有记录过当前 char 的 index，长度 + 1，记录当前的 char index 为 right
                 length ++;
                 charIndex[c] = right;
-            } else {
+            } else { // 当前 char index 已经记录过了，将上次的 index + 1 作为新的 left
                 int lastIndex = charIndex[c];
                 left = lastIndex + 1;
                 length = right - left + 1;

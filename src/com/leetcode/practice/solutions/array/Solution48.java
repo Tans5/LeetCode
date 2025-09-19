@@ -32,6 +32,7 @@ public class Solution48 {
         }
         // 先将行转换成列
         for (int row = 0; row < matrix.length; row ++) {
+            // 注意 col 开始的值是 row.
             for (int col = row; col < matrix.length; col ++) {
                 int temp = matrix[row][col];
                 matrix[row][col] = matrix[col][row];

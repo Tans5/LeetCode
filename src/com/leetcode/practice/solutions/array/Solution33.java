@@ -19,14 +19,17 @@ package com.leetcode.practice.solutions.array;
 public class Solution33 {
 
     public int search(int[] nums, int target) {
+        // 先找到真实的数组开始的 index
         int startIndex = searchArrayStartIndex(nums, 0, nums.length - 1);
-        if (startIndex == -1) {
+        if (startIndex == -1) { // 未反转，直接查询
             return search(nums, 0, nums.length - 1, target);
         } else {
+            // 先二分查询左边
             int ret = search(nums, 0, startIndex - 1, target);
             if (ret != -1) {
                 return ret;
             }
+            // 再二分查询右边
             return search(nums, startIndex, nums.length - 1, target);
         }
     }

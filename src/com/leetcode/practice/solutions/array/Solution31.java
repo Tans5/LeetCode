@@ -27,8 +27,10 @@ package com.leetcode.practice.solutions.array;
 public class Solution31 {
 
     public void nextPermutation(int[] nums) {
+        // 反向遍历
         for (int i = nums.length - 2; i >= 0; i --) {
             Integer toSwapIndex = null;
+            // 从 i + 1 开始找，找到大于 i 的值中最小的
             for (int j = i + 1; j < nums.length; j ++) {
                 if (nums[i] < nums[j]) {
                     if (toSwapIndex == null) {
@@ -41,7 +43,9 @@ public class Solution31 {
                 }
             }
             if (toSwapIndex != null) {
+                // 交换 i 和上面找到的值
                 swap(nums, i, toSwapIndex);
+                // 排序 i + 1 后续的值
                 sort(nums, i + 1, nums.length - 1);
                 return;
             }

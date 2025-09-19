@@ -12,12 +12,14 @@ public class Solution56 {
         if (intervals.length == 0) {
             return new int[][]{};
         }
+        // 区间 start 升序排序
         Arrays.sort(intervals, (a, b) -> { return a[0] - b[0]; });
         int i = 0;
         List<int[]> resultList = new ArrayList<>();
         while (i < intervals.length) {
             int left = intervals[i][0];
             int right = intervals[i][1];
+            // 将区间 left 小于 目标 right，区间的 right 大于目标 right的区间合并
             do {
                 if (intervals[i][1] > right) {
                     right = intervals[i][1];

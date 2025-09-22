@@ -26,6 +26,7 @@ package com.leetcode.practice.solutions.array;
  */
 public class Solution643 {
 
+    // 滑动窗口求最大值
     public double findMaxAverage(int[] nums, int k) {
         int max;
         int sum = 0;

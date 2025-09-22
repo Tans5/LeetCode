@@ -43,6 +43,8 @@ package com.leetcode.practice.solutions.array;
 public class Solution904 {
 
     // start 到 end 最多 2 种水果，求 end - start 的最大值
+    // 滑动窗口求解，每个窗口中最多包涵两种水果，求窗口的最大值。
+    // end ++ 扩大窗口；当水果种类大于 2，start ++缩小窗口，知道水果种类小于等于 2，这个过程中求 end - start 的最大值
     public int totalFruit(int[] fruits) {
         int fruitType = 0;
         int[] fruitTimes = new int[fruits.length];

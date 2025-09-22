@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class Solution560 {
 
+    // 前缀和求解
     // [1, 2, 3] 3
     public int subarraySum(int[] nums, int k) {
         if (nums.length == 0) {

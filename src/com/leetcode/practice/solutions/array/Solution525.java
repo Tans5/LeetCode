@@ -38,7 +38,7 @@ public class Solution525 {
         }
         int maxLen = 0;
         int sum = 0;
-        // 储存正 sum 的 index.
+        // 储存正 sum 的 index.（前缀和）
         short[] prefixPositive = new short[100001];
         // 储存负 sum 的 index.
         short[] prefixNegative = new short[100001];
@@ -58,11 +58,13 @@ public class Solution525 {
                 if (sum > 0) {
                     int preIndex = prefixPositive[sum] - 1;
                     if (preIndex >= 0) {
+                        // preIndex + 1 到 i 的和为 0
                         int len = i - preIndex;
                         if (len > maxLen) {
                             maxLen = len;
                         }
                     } else {
+                        // 如果没有记录，就记录当前的 index 的 sum
                         prefixPositive[sum] = (short) (i + 1);
                     }
                 } else {

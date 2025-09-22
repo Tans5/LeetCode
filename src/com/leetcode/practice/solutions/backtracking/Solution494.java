@@ -30,7 +30,9 @@ public class Solution494 {
         }
         int count = 0;
         int num = nums[startIndex];
+        // -
         count += backtracking(nums, startIndex + 1, target, sum - num);
+        // +
         count += backtracking(nums, startIndex + 1, target, sum + num);
         return count;
     }

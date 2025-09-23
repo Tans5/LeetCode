@@ -46,10 +46,13 @@ public class Solution72 {
         if (len2 == 0) {
             return len1;
         }
+        // word1 在 i 的位置 -> word2 在 j 的位置最小操作数
         int[][] dp = new int[len1 + 1][len2 + 1];
+        // word1 转换为空 只能删除
         for (int i = 1; i <= len1; i ++) {
             dp[i][0] = i;
         }
+        // 由空转换，只能添加
         for (int j = 1; j <= len2; j ++) {
             dp[0][j] = j;
         }
@@ -58,6 +61,7 @@ public class Solution72 {
                 char c1 = word1.charAt(i - 1);
                 char c2 = word2.charAt(j - 1);
                 if (c1 == c2) {
+                    // 不用转换
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
                     // 删除

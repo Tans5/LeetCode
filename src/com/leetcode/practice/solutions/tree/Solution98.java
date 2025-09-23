@@ -14,9 +14,6 @@ import com.leetcode.practice.solutions.others.TreeNode;
 public class Solution98 {
 
     public boolean isValidBST(TreeNode root) {
-        if (root == null) {
-            return false;
-        }
         return treeRange(root) != null;
     }
 
@@ -25,34 +22,41 @@ public class Solution98 {
      */
     private Integer[] treeRange(TreeNode root) {
         if (root == null) {
-            return new Integer[]{null, null};
+            return null;
         }
         int value = root.val;
-        Integer[] leftRange = treeRange(root.left);
-        if (leftRange == null) {
-            return null;
-        }
-        Integer[] rightRange = treeRange(root.right);
-        if (rightRange == null) {
-            return null;
-        }
         int min;
         int max;
-        if (leftRange[0] == null) {
+        if (root.left != null) {
+            Integer[] range = treeRange(root.left);
+            if (range == null) {
+                return null;
+            }
+            if (range[1] >= value) {
+                return null;
+            }
+            min = range[0];
+        } else {
             min = value;
-        } else if (leftRange[1] >= value) {
-            return null;
-        } else {
-            min = leftRange[0];
         }
-        if (rightRange[1] == null) {
+
+        if (root.right != null) {
+            Integer[] range = treeRange(root.right);
+            if (range == null) {
+                return null;
+            }
+            if (range[0] <= value) {
+                return null;
+            }
+            max = range[1];
+        } else {
             max = value;
-        } else if (rightRange[0] <= value) {
+        }
+        if (min > max) {
             return null;
         } else {
-            max = rightRange[1];
+            return new Integer[] {min, max};
         }
-        return new Integer[]{min, max};
     }
 
 }

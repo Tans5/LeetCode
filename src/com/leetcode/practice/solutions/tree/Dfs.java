@@ -9,12 +9,35 @@ import java.util.List;
 
 public class Dfs {
 
+
+    // 先序遍历
+    public List<Integer> dfsPreorder(TreeNode root) {
+        List<Integer> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> dfsDeque = new LinkedList<>();
+        dfsDeque.push(root);
+        while (!dfsDeque.isEmpty()) {
+            TreeNode n = dfsDeque.pop();
+            result.add(n.val);
+            if (n.right != null) {
+                dfsDeque.push(n.right);
+            }
+            if (n.left != null) {
+                dfsDeque.push(n.left);
+            }
+        }
+        return result;
+    }
+
+    // 中序遍历
     public List<Integer> dfsInorder(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         if (root == null) {
             return result;
         }
-        Deque<TreeNode> dfsDeque = new ArrayDeque<>();
+        Deque<TreeNode> dfsDeque = new LinkedList<>();
         TreeNode n = root;
         while (n != null) {
             dfsDeque.push(n);
@@ -32,33 +55,13 @@ public class Dfs {
         return result;
     }
 
-
-    public List<Integer> dfsPreorder(TreeNode root) {
-        List<Integer> result = new LinkedList<>();
-        if (root == null) {
-            return result;
-        }
-        Deque<TreeNode> dfsDeque = new ArrayDeque<>();
-        dfsDeque.push(root);
-        while (!dfsDeque.isEmpty()) {
-            TreeNode n = dfsDeque.pop();
-            result.add(n.val);
-            if (n.right != null) {
-                dfsDeque.push(n.right);
-            }
-            if (n.left != null) {
-                dfsDeque.push(n.left);
-            }
-        }
-        return result;
-    }
-
+    // 后序遍历
     public List<Integer> dfsPostorder(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         if (root == null) {
             return result;
         }
-        Deque<TreeNode> dfsDeque = new ArrayDeque<>();
+        Deque<TreeNode> dfsDeque = new LinkedList<>();
         dfsDeque.push(root);
         while (!dfsDeque.isEmpty()) {
             TreeNode n = dfsDeque.pop();

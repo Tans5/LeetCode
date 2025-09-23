@@ -40,6 +40,7 @@ public class Solution139 {
 
     public boolean wordBreak(String s, List<String> wordDict) {
         char[] chars = s.toCharArray();
+        // 长度为 i 的 s 能否拼接出
         boolean[] dp = new boolean[chars.length + 1];
         dp[0] = true;
         for (int i = 0; i < chars.length; i ++) {

@@ -11,15 +11,14 @@ public class Solution206 {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode previous = head;
-        ListNode cursor = head.next;
-        previous.next = null;
+        ListNode previous = null;
+        ListNode cursor = head;
         ListNode temp;
         while (cursor != null) {
-            temp = cursor.next;
-            cursor.next = previous;
-            previous = cursor;
-            cursor = temp;
+            temp = cursor;
+            cursor = cursor.next;
+            temp.next = previous;
+            previous = temp;
         }
         return previous;
     }

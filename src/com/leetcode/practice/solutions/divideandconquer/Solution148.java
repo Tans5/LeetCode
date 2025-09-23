@@ -7,6 +7,7 @@ import com.leetcode.practice.solutions.others.ListNode;
  */
 public class Solution148 {
 
+    // 归并排序的思想
     public ListNode sortList(ListNode head) {
         if (head == null) {
             return null;

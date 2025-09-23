@@ -37,6 +37,7 @@ public class Solution152 {
                 if (start == end) {
                     v = nums[start];
                 } else {
+                    // dp[start] 为长度为 len - 1 时，开始的位置为 start 时的乘ji
                     v = dp[start] * nums[end];
                 }
                 dp[start] = v;

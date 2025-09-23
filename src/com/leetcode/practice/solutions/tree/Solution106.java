@@ -10,6 +10,16 @@ import java.util.Map;
  */
 public class Solution106 {
 
+    /**
+     *          5
+     *         / \
+     *       3    7
+     *      /     / \
+     *    1      6   8
+     *
+     *    postorder: 1 3 6 8 7 5
+     *    inorder: 1 3 5 6 7 8
+     */
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         if (inorder.length == 0 || inorder.length != postorder.length) {
             return null;

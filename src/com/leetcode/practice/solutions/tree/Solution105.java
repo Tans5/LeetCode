@@ -10,6 +10,17 @@ import java.util.Map;
  */
 public class Solution105 {
 
+
+    /**
+     *          5
+     *         / \
+     *       3    7
+     *      /     / \
+     *    1      6   8
+     *
+     *    preorder: 5 3 1 7 6 8
+     *    inorder: 1 3 5 6 7 8
+     */
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if (preorder.length == 0 || preorder.length != inorder.length) {
             return null;
@@ -27,12 +38,15 @@ public class Solution105 {
         }
         TreeNode node = new TreeNode();
         node.val = preorder[preorderStartIndex];
+        // 中序遍历的 parent index
         Integer inorderParentIndex = inorderNumToIndex.get(node.val);
         if (inorderParentIndex == null) {
             return node;
         }
+        // 左子树的大小
         int leftChildLen = inorderParentIndex - inorderStartIndex;
         node.left = buildTree(preorder, inorderNumToIndex, preorderStartIndex + 1, inorderStartIndex, leftChildLen);
+        // 右子树的大小
         int rightChildLen = len - leftChildLen - 1;
         node.right = buildTree(preorder, inorderNumToIndex, preorderStartIndex + leftChildLen + 1, inorderParentIndex + 1, rightChildLen);
         return node;

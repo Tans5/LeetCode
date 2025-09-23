@@ -1,12 +1,15 @@
 package com.leetcode.practice;
 
 import com.leetcode.practice.solutions.array.Solution3479;
+import com.leetcode.practice.solutions.linkedlist.SolutionLRC26;
+import com.leetcode.practice.solutions.others.ListNode;
 
 
 public class Main {
     public static void main(String[] args) {
-        Solution3479 s = new Solution3479();
-        int ret = s.numOfUnplacedFruits(new int[] {4, 2, 5}, new int[] {3, 5, 4});
-        System.out.println(ret);
+        SolutionLRC26 s = new SolutionLRC26();
+        ListNode root = ListNode.createNode(new int[] { 1, 2, 3, 4, 5});
+        s.reorderList(root);
+        ListNode.printNode(root);
     }
 }

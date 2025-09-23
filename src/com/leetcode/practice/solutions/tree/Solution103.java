@@ -13,14 +13,6 @@ public class Solution103 {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         level(root, result, 0);
-        for (int i = 1; i < result.size(); i += 2) {
-            List<Integer> list = result.get(i);
-            for (int j = 0; j < list.size() / 2; j ++) {
-                int temp = list.get(j);
-                list.set(j, list.get(list.size() - j - 1));
-                list.set(list.size() - j - 1, temp);
-            }
-        }
         return result;
     }
 
@@ -35,7 +27,11 @@ public class Solution103 {
         } else {
             levelResult = result.get(level);
         }
-        levelResult.add(root.val);
+        if (level % 2 == 0) {
+            levelResult.add(root.val);
+        } else {
+            levelResult.add(0, root.val);
+        }
         level(root.left, result, level + 1);
         level(root.right, result, level + 1);
     }

@@ -8,7 +8,7 @@ import com.leetcode.practice.solutions.others.TreeNode;
 public class Solution101 {
 
     public boolean isSymmetric(TreeNode root) {
-        return check(root, root);
+        return check(root.left, root.right);
     }
 
     public boolean check(TreeNode p, TreeNode q) {

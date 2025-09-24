@@ -12,31 +12,20 @@ public class Solution199 {
 
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-        List<TreeNode> front = new ArrayList<>();
-        front.add(root);
-        List<TreeNode> back = new ArrayList<>();
-        int deep = 0;
-        while (!front.isEmpty()) {
-            deep ++;
-            result.add(0);
-            for (int i = 0; i < front.size(); i ++) {
-                TreeNode n = front.get(i);
-                result.set(deep - 1, n.val);
-                if (n.left != null) {
-                    back.add(n.left);
-                }
-                if (n.right != null) {
-                    back.add(n.right);
-                }
-            }
-            List<TreeNode> temp = front;
-            front = back;
-            back = temp;
-            back.clear();
-        }
+        dfs(root, result, 0);
         return result;
+    }
+
+    private void dfs(TreeNode root, List<Integer> result, int level) {
+        if (root == null) {
+            return;
+        }
+        if (result.size() == level) {
+            result.add(root.val);
+        } else {
+            result.set(level, root.val);
+        }
+        dfs(root.left, result, level + 1);
+        dfs(root.right, result, level + 1);
     }
 }

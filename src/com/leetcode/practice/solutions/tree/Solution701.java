@@ -14,75 +14,28 @@ import com.leetcode.practice.solutions.others.TreeNode;
  * 保证 val 在原始BST中不存在。
  */
 public class Solution701 {
-
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if (root == null) {
-            TreeNode n = new TreeNode();
-            n.val = val;
-            return n;
+            return new TreeNode(val);
         }
-        insert(root, val);
+
+        TreeNode current = root;
+        while (true) {
+            if (val < current.val) {
+                if (current.left == null) {
+                    current.left = new TreeNode(val);
+                    break;
+                }
+                current = current.left;
+            } else {
+                if (current.right == null) {
+                    current.right = new TreeNode(val);
+                    break;
+                }
+                current = current.right;
+            }
+        }
+
         return root;
-    }
-
-    private void insert(TreeNode root, int val) {
-        if (root == null) {
-            return;
-        }
-        if (val < root.val) {
-            Integer max = treeMax(root.left);
-            if (max == null) {
-                TreeNode n = new TreeNode();
-                n.val = val;
-                root.left = n;
-            } else {
-                if (max < val) {
-                    TreeNode n = new TreeNode();
-                    n.val = val;
-                    n.left = root.left;
-                    root.left = n;
-                } else {
-                    insert(root.left, val);
-                }
-            }
-        } else {
-            Integer min = treeMin(root.right);
-            if (min == null) {
-                TreeNode n = new TreeNode();
-                n.val = val;
-                root.right = n;
-            } else {
-                if (min > val) {
-                    TreeNode n = new TreeNode();
-                    n.val = val;
-                    n.right = root.right;
-                    root.right = n;
-                } else {
-                    insert(root.right, val);
-                }
-            }
-        }
-    }
-
-    private Integer treeMax(TreeNode root) {
-        if (root == null) {
-            return null;
-        }
-        if (root.right == null) {
-            return root.val;
-        } else {
-            return treeMax(root.right);
-        }
-    }
-
-    private Integer treeMin(TreeNode root) {
-        if (root == null) {
-            return null;
-        }
-        if (root.left == null) {
-            return root.val;
-        } else {
-            return treeMin(root.left);
-        }
     }
 }

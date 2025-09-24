@@ -22,102 +22,43 @@ import com.leetcode.practice.solutions.others.TreeNode;
  * 进阶： 要求算法时间复杂度为 O(h)，h 为树的高度。
  */
 public class Solution450 {
-
     public TreeNode deleteNode(TreeNode root, int key) {
-        TreeNode[] t = findTargetNode(root, key);
-        if (t != null) {
-            TreeNode toDeleteNode = t[0];
-            TreeNode toDeleteNodeParent = t[1];
-            if (toDeleteNodeParent == null) {
-                // 删除的节点是 root 节点
-                if (root.left != null && root.right != null) {
-                    TreeNode result = root.left;
-                    findMaxNode(root.left).right = root.right;
-                    root.left = null;
-                    root.right = null;
-                    return result;
-                } else if (root.left != null) {
-                    TreeNode result = root.left;
-                    root.left = null;
-                    return result;
-                } else if (root.right != null) {
-                    TreeNode result = root.right;
-                    root.right = null;
-                    return result;
-                } else {
-                    return null;
-                }
-            } else {
-                // 删除的节点不是 root 节点
-                // 被删除的节点是否是父节点的左节点
-                boolean toDeleteNodeIsLeftChild = toDeleteNodeParent.left == toDeleteNode;
-                TreeNode left = toDeleteNode.left;
-                TreeNode right = toDeleteNode.right;
-                if (left == null && right == null) {
-                    if (toDeleteNodeIsLeftChild) {
-                        toDeleteNodeParent.left = null;
-                    } else {
-                        toDeleteNodeParent.right = null;
-                    }
-                } else if (right == null) {
-                    if (toDeleteNodeIsLeftChild) {
-                        toDeleteNodeParent.left = left;
-                    } else {
-                        toDeleteNodeParent.right = left;
-                    }
-                } else if (left == null) {
-                    if (toDeleteNodeIsLeftChild) {
-                        toDeleteNodeParent.left = right;
-                    } else {
-                        toDeleteNodeParent.right = right;
-                    }
-                } else {
-                    TreeNode max = findMaxNode(left);
-                    max.right = right;
-                    if (toDeleteNodeIsLeftChild) {
-                        toDeleteNodeParent.left = left;
-                    } else {
-                        toDeleteNodeParent.right = left;
-                    }
-                }
-
-                return root;
-            }
-        } else {
-            return root;
-        }
-    }
-
-    /**
-     * 0: 目标节点
-     * 1: 目标节点的父节点
-     */
-    private TreeNode[] findTargetNode(TreeNode root, int key) {
         if (root == null) {
             return null;
         }
-        if (root.val == key) {
-            return new TreeNode[] { root, null };
-        }
-        if (root.left != null && root.left.val == key) {
-            return new TreeNode[] { root.left, root };
-        }
-        if (root.right != null && root.right.val == key) {
-            return new TreeNode[] { root.right, root };
-        }
+
+        // 查找要删除的节点
         if (key < root.val) {
-            return findTargetNode(root.left, key);
+            root.left = deleteNode(root.left, key);
+        } else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
         } else {
-            return findTargetNode(root.right, key);
+            // 找到要删除的节点
+            // 情况1: 只有一个子节点或没有子节点
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            // 情况2: 有两个子节点
+            // 找到右子树的最小节点
+            TreeNode minNode = findMin(root.right);
+            // 用最小节点的值替换当前节点的值
+            root.val = minNode.val;
+            // 删除右子树中的最小节点
+            root.right = deleteNode(root.right, minNode.val);
         }
+
+        return root;
     }
 
-    private TreeNode findMaxNode(TreeNode root) {
-        if (root.right == null) {
-            return root;
-        } else {
-            return findMaxNode(root.right);
+    // 找到子树中的最小节点（最左边的节点）
+    private TreeNode findMin(TreeNode node) {
+        while (node.left != null) {
+            node = node.left;
         }
+        return node;
     }
 
 }

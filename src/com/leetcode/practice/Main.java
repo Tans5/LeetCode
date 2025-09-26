@@ -1,14 +1,11 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.Solution165;
-import com.leetcode.practice.solutions.array.Solution3479;
-import com.leetcode.practice.solutions.linkedlist.SolutionLRC26;
-import com.leetcode.practice.solutions.others.ListNode;
+import com.leetcode.practice.solutions.backtracking.Solution946;
 
 
 public class Main {
     public static void main(String[] args) {
-        Solution165 s = new Solution165();
-        System.out.println(s.compareVersion("1.0", "1.0.0"));
+        Solution946 s = new Solution946();
+        System.out.println(s.validateStackSequences(new int[] {1, 2, 3, 4, 5}, new int[] {4,5,3,2,1}));
     }
 }

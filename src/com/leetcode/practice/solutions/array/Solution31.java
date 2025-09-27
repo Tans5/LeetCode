@@ -25,64 +25,41 @@ package com.leetcode.practice.solutions.array;
  * 输出：[1,2,3]
  */
 public class Solution31 {
-
     public void nextPermutation(int[] nums) {
-        // 反向遍历
-        for (int i = nums.length - 2; i >= 0; i --) {
-            Integer toSwapIndex = null;
-            // 从 i + 1 开始找，找到大于 i 的值中最小的
-            for (int j = i + 1; j < nums.length; j ++) {
-                if (nums[i] < nums[j]) {
-                    if (toSwapIndex == null) {
-                        toSwapIndex = j;
-                    } else {
-                        if (nums[j] < nums[toSwapIndex]) {
-                            toSwapIndex = j;
-                        }
-                    }
-                }
-            }
-            if (toSwapIndex != null) {
-                // 交换 i 和上面找到的值
-                swap(nums, i, toSwapIndex);
-                // 排序 i + 1 后续的值
-                sort(nums, i + 1, nums.length - 1);
-                return;
-            }
-        }
-        for (int i = 0; i < nums.length / 2; i ++) {
-            swap(nums, i, nums.length - i - 1);
-        }
-    }
+        int i = nums.length - 2;
 
-
-    private void sort(int[] nums, int start, int end) {
-        if (start >= end) {
-            return;
+        // 1. 从后向前找第一个降序位置
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
         }
-        int i = start;
-        int j = end;
-        int baseNum = nums[start];
-        while (i < j) {
-            while (i < j && nums[j] >= baseNum) {
-                j --;
+
+        // 2. 如果找到降序位置
+        if (i >= 0) {
+            int j = nums.length - 1;
+            // 3. 从后向前找第一个大于 nums[i] 的元素
+            while (j >= 0 && nums[j] <= nums[i]) {
+                j--;
             }
-            while (i < j && nums[i] <= baseNum) {
-                i ++;
-            }
+            // 4. 交换两个元素
             swap(nums, i, j);
         }
-        swap(nums, start, i);
-        sort(nums, start, i - 1);
-        sort(nums, i + 1, end);
+
+        // 5. 反转 i 之后的部分（如果 i=-1，则反转整个数组）
+        reverse(nums, i + 1);
     }
 
     private void swap(int[] nums, int i, int j) {
-        if (i == j) {
-            return;
-        }
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    private void reverse(int[] nums, int start) {
+        int end = nums.length - 1;
+        while (start < end) {
+            swap(nums, start, end);
+            start++;
+            end--;
+        }
     }
 }

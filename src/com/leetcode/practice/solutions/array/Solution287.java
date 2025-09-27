@@ -24,23 +24,25 @@ package com.leetcode.practice.solutions.array;
 public class Solution287 {
 
 
+    /**
+     * 这个题目和指针环的题目一样，找到环的入口就是目标重复值
+     * @param nums
+     * @return
+     */
     public int findDuplicate(int[] nums) {
-        int start = 1;
-        int end = nums.length;
-        while (start < end) {
-            int mid = (end + start) / 2;
-            int count = 0;
-            for (int n: nums) {
-                if (n <= mid) {
-                    count ++;
-                }
-            }
-            if (count > mid) {
-                end = mid;
-            } else {
-                start = mid + 1;
-            }
+        int fastCursor = nums[0];
+        int slowCursor = nums[0];
+        do {
+            slowCursor = nums[slowCursor];
+            fastCursor = nums[nums[fastCursor]];
+        } while (fastCursor != slowCursor);
+
+        fastCursor = nums[0];
+
+        while (fastCursor != slowCursor) {
+            fastCursor = nums[fastCursor];
+            slowCursor = nums[slowCursor];
         }
-        return start;
+        return slowCursor;
     }
 }

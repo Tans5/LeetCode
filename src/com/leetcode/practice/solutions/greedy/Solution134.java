@@ -1,7 +1,5 @@
 package com.leetcode.practice.solutions.greedy;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 在一条环路上有 n 个加油站，其中第 i 个加油站有汽油 gas[i] 升。

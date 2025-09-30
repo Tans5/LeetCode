@@ -24,15 +24,12 @@ public class CountingSort {
         for (int num : nums) {
             counter[num] ++;
         }
-        for (int i = 1; i < counter.length; i ++) {
-            counter[i] += counter[i - 1];
+        int writeIndex = 0;
+        for (int i = 0; i < counter.length; i ++) {
+            for (int c = 0; c < counter[i]; c ++) {
+                nums[writeIndex ++] = i;
+            }
         }
-        int[] sorted = new int[nums.length];
-        for (int i = nums.length - 1; i >= 0; i --) {
-            int num = nums[i];
-            sorted[--counter[num]] = num;
-        }
-        System.arraycopy(sorted, 0, nums, 0, sorted.length);
     }
 
 }

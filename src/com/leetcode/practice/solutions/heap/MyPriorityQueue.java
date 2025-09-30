@@ -1,37 +1,37 @@
 package com.leetcode.practice.solutions.heap;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MyPriorityQueue<T> {
 
-    private final List<T> heap = new ArrayList<>();
-
+    private final List<T> heap = new LinkedList<>();
     private final Priority<T> priority;
 
     public MyPriorityQueue(Priority<T> p) {
         priority = p;
     }
 
-    public void push(T v) {
+    public void offer(T v) {
+//        heap.add(0, v);
+//        sinkDown(0);
         heap.add(v);
-        makeHeapFromBottom(heap.size() - 1);
+        bubbleUp(heap.size() - 1);
     }
 
-    public T pop() {
+    public T poll() {
         if (isEmpty()) {
             return null;
-        } else {
-            T value = getValue(0);
-            swap(0, size() - 1);
-            heap.remove(size() - 1);
-            makeHeapFromTop(0);
-            return value;
         }
+        T value = heap.get(0);
+        swap(0, heap.size() - 1);
+        heap.remove(heap.size() - 1);
+        sinkDown(0);
+        return value;
     }
 
     public T peek() {
-        return getValue(0);
+        return heap.isEmpty() ? null : heap.get(0);
     }
 
     public int size() {
@@ -42,6 +42,10 @@ public class MyPriorityQueue<T> {
         return heap.isEmpty();
     }
 
+    private int parentIndex(int i) {
+        return (i - 1) / 2;
+    }
+
     private int leftChildIndex(int i) {
         return i * 2 + 1;
     }
@@ -50,17 +54,8 @@ public class MyPriorityQueue<T> {
         return i * 2 + 2;
     }
 
-    private int parentIndex(int i) {
-        if (i <= 0) {
-            return -1;
-        } else {
-            return (i - 1) / 2;
-        }
-    }
-
     private void swap(int indexA, int indexB) {
-        int s = size();
-        if (indexA >= s || indexB >= s) {
+        if (indexA >= heap.size() || indexB >= heap.size() || indexA < 0 || indexB < 0) {
             return;
         }
         T temp = heap.get(indexA);
@@ -68,73 +63,58 @@ public class MyPriorityQueue<T> {
         heap.set(indexB, temp);
     }
 
-    private T getValue(int i) {
-        if (i >= heap.size() || i < 0) {
-            return null;
-        } else {
-            return heap.get(i);
-        }
-    }
-
-    private void makeHeapFromBottom(int index) {
-        if (index >= size() || index <= 0) {
+    private void bubbleUp(int index) {
+        if (index <= 0) {
             return;
         }
         int parentIndex = parentIndex(index);
-        T value = getValue(index);
-        T parentValue = getValue(parentIndex);
-        int p = priority.priority(parentValue, value);
-        if (p > 0) {
-            swap(index, parentIndex);
-            makeHeapFromBottom(parentIndex);
-        }
+        T current = heap.get(index);
+        T parent = heap.get(parentIndex);
 
+        // 如果当前节点的优先级高于父节点，则交换
+        if (priority.priority(current, parent) < 0) {
+            swap(index, parentIndex);
+            bubbleUp(parentIndex);
+        }
     }
 
-    private void makeHeapFromTop(int index) {
-        if (index >= size() || index < 0) {
-            return;
-        }
+    private void sinkDown(int index) {
         int leftChildIndex = leftChildIndex(index);
         int rightChildIndex = rightChildIndex(index);
-        T value = getValue(index);
-        T leftChildValue = getValue(leftChildIndex);
-        T rightChildValue = getValue(rightChildIndex);
-        if (leftChildValue != null && rightChildValue != null) {
-            int pl = priority.priority(value, leftChildValue);
-            int pr = priority.priority(value, rightChildValue);
-            if (pl > 0 && pr > 0) {
-                int plr = priority.priority(leftChildValue, rightChildValue);
-                if (plr < 0) {
-                    swap(index, leftChildIndex);
-                    makeHeapFromTop(leftChildIndex);
-                } else {
-                    swap(index, rightChildIndex);
-                    makeHeapFromTop(rightChildIndex);
-                }
-            } else if (pl > 0) {
-                swap(index, leftChildIndex);
-                makeHeapFromTop(leftChildIndex);
-            } else if (pr > 0) {
-                swap(index, rightChildIndex);
-                makeHeapFromTop(rightChildIndex);
+        int highestPriorityIndex = index;
+
+        // 检查左子节点
+        if (leftChildIndex < heap.size()) {
+            T current = heap.get(highestPriorityIndex);
+            T leftChild = heap.get(leftChildIndex);
+            if (priority.priority(current, leftChild) > 0) {
+                highestPriorityIndex = leftChildIndex;
             }
-        } else if (leftChildValue != null) {
-            int pl = priority.priority(value, leftChildValue);
-            if (pl > 0) {
-                swap(index, leftChildIndex);
+        }
+
+        // 检查右子节点
+        if (rightChildIndex < heap.size()) {
+            T current = heap.get(highestPriorityIndex);
+            T rightChild = heap.get(rightChildIndex);
+            if (priority.priority(current, rightChild) > 0) {
+                highestPriorityIndex = rightChildIndex;
             }
-        } else if (rightChildValue != null) {
-            int pr = priority.priority(value, rightChildValue);
-            if (pr > 0) {
-                swap(index, rightChildIndex);
-            }
+        }
+
+        // 如果需要交换，递归下沉
+        if (highestPriorityIndex != index) {
+            swap(index, highestPriorityIndex);
+            sinkDown(highestPriorityIndex);
         }
     }
 
-
-    public static interface Priority<T> {
-
+    public interface Priority<T> {
+        /**
+         * 比较两个元素的优先级
+         * @param a 第一个元素
+         * @param b 第二个元素
+         * @return 负数如果a的优先级高于b，正数如果a的优先级低于b，0如果相等
+         */
         int priority(T a, T b);
     }
 }

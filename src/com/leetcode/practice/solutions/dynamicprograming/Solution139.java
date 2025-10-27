@@ -1,5 +1,6 @@
 package com.leetcode.practice.solutions.dynamicprograming;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,30 +41,38 @@ public class Solution139 {
 
     public boolean wordBreak(String s, List<String> wordDict) {
         char[] chars = s.toCharArray();
-        // 长度为 i 的 s 能否拼接出
+        char[][] dict = new char[wordDict.size()][];
+        for (int i = 0; i < wordDict.size(); i ++) {
+            dict[i] = wordDict.get(i).toCharArray();
+        }
         boolean[] dp = new boolean[chars.length + 1];
         dp[0] = true;
         for (int i = 0; i < chars.length; i ++) {
-            if (!dp[i]) {
-                continue;
-            }
-            for(String word: wordDict) {
-                int wordLen = word.length();
-                if (i + wordLen > chars.length) {
-                    continue;
-                }
-                boolean isOk = true;
-                for (int j = i; j < i + wordLen; j ++) {
-                    if (chars[j] != word.charAt(j - i)) {
-                        isOk = false;
-                        break;
-                    }
-                }
-                if (isOk) {
-                    dp[i + wordLen] = true;
+            if (dp[i]) {
+                List<Integer> indexes = find(chars, i, dict);
+                for (int index: indexes) {
+                    dp[index + 1] = true;
                 }
             }
         }
         return dp[chars.length];
+    }
+
+    private List<Integer> find(char[] chars, int startIndex, char[][] dic) {
+        List<Integer> result = new ArrayList<>();
+        for (char[] word: dic) {
+            if (word.length + startIndex > chars.length) {
+                continue;
+            }
+            for (int i = 0; i < word.length; i ++) {
+                if (word[i] != chars[startIndex + i]) {
+                    break;
+                }
+                if (i == word.length - 1) {
+                    result.add(i + startIndex);
+                }
+            }
+        }
+        return result;
     }
 }

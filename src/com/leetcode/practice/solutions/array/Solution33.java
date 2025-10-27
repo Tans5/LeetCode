@@ -18,9 +18,16 @@ package com.leetcode.practice.solutions.array;
  */
 public class Solution33 {
 
+    public static void main(String[] args) {
+        int[] nums = new int[] {8,9,2,3,4};
+        int target = 9;
+        Solution33 s = new Solution33();
+        System.out.println(s.search(nums, target));
+    }
+
     public int search(int[] nums, int target) {
         // 先找到真实的数组开始的 index
-        int startIndex = searchArrayStartIndex(nums, 0, nums.length - 1);
+        int startIndex = searchArrayStartIndex(nums);
         if (startIndex == -1) { // 未反转，直接查询
             return search(nums, 0, nums.length - 1, target);
         } else {
@@ -34,42 +41,69 @@ public class Solution33 {
         }
     }
 
-
-    private int searchArrayStartIndex(int[] nums, int start, int end) {
-        if (start >= end) {
-            return -1;
-        }
-        if (nums[start] > nums[end]) {
-            if (end - start == 1) {
-                return end;
+    private int searchArrayStartIndex(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        while (low < high - 1) {
+            int mid = (high + low) / 2;
+            int midNum = nums[mid];
+            int lowNum = nums[low];
+            if (lowNum > midNum) {
+                high = mid;
             } else {
-                int mid = (start + end) / 2;
-                if (mid + 1 < nums.length && nums[mid + 1] < nums[mid]) {
-                    return mid + 1;
-                }
-                int ret = searchArrayStartIndex(nums, start, mid);
-                if (ret != -1) {
-                    return ret;
-                }
-                return searchArrayStartIndex(nums, mid + 1, end);
+                low = mid;
             }
+        }
+        if (nums[low] > nums[high]) {
+            return high;
         } else {
             return -1;
         }
     }
 
     private int search(int[] nums, int start, int end, int target) {
-        if (start > end) {
-            return -1;
+        int low = start;
+        int high = end;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if (nums[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
         }
-        int mid = (start + end) / 2;
-        int n = nums[mid];
-        if (n == target) {
-            return mid;
+        return -1;
+    }
+
+    // 4,5,6,7,0,1,2
+    public int search2(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int midNum = nums[mid];
+            if (midNum == target) {
+                return mid;
+            }
+            int lowNum = nums[low];
+            int highNum = nums[high];
+            if (lowNum <= midNum) { // [low, mid] sorted
+                if (target < midNum && target >= lowNum) { // target in [low, mid)
+                    high = mid - 1;
+                } else { // target in (mid, high]
+                    low = mid + 1;
+                }
+            } else { // (mid, high] sorted
+                if (target > midNum && target <= highNum) { // target in (mid, high]
+                    low = mid + 1;
+                } else { // target in [low, mid)
+                    high = mid - 1;
+                }
+            }
         }
-        if (n > target) {
-            return search(nums, start, mid - 1, target);
-        }
-        return search(nums, mid + 1, end, target);
+        return -1;
     }
 }

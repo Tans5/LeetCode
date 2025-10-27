@@ -50,4 +50,22 @@ public class Solution121 {
         }
         return maxProfit;
     }
+
+    public int maxProfit3(int[] prices) {
+        if (prices.length <= 1) {
+            return 0;
+        }
+        // min price before i
+        int[] dp = new int[prices.length];
+        int max = 0;
+        dp[0] = prices[0];
+        for (int i = 1; i < prices.length; i ++) {
+            int p = prices[i];
+            if (p - dp[i - 1] > max) {
+                max = p - dp[i - 1];
+            }
+            dp[i] = Math.min(p, dp[i - 1]);
+        }
+        return max;
+    }
 }

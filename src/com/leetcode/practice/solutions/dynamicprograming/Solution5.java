@@ -25,20 +25,22 @@ public class Solution5 {
         char[] chars = s.toCharArray();
         int maxLen = 1;
         int maxLenStart = 0;
-        dp[0][0] = true;
-        for (int end = 1; end < s.length(); end ++) {
-            for (int start = 0; start <= end; start ++) {
-                if (chars[start] == chars[end]) {
-                    int len = end - start + 1;
-                    if (len <= 3 || dp[start + 1][end - 1]) {
-                        dp[start][end] = true;
-                        if (len > maxLen) {
-                            maxLen = len;
-                            maxLenStart = start;
-                        }
-                    }
+
+        for (int len = 1; len <= s.length(); len ++) {
+            for (int start = 0; start + len <= s.length(); start ++) {
+                int end = start + len - 1;
+                if (start == end) {
+                    dp[start][end] = true;
+                    continue;
+                }
+                if (len == 2) {
+                    dp[start][end] = chars[start] == chars[end];
                 } else {
-                    dp[start][end] = false;
+                    dp[start][end] = dp[start + 1][end - 1] && chars[start] == chars[end];
+                }
+                if (len > maxLen && dp[start][end]) {
+                    maxLen = len;
+                    maxLenStart = start;
                 }
             }
         }

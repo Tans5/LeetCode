@@ -1,11 +1,10 @@
 package com.leetcode.practice;
 
-import com.leetcode.practice.solutions.backtracking.Solution946;
-
+import com.leetcode.practice.solutions.array.Solution81;
 
 public class Main {
     public static void main(String[] args) {
-        Solution946 s = new Solution946();
-        System.out.println(s.validateStackSequences(new int[] {1, 2, 3, 4, 5}, new int[] {4,5,3,2,1}));
+        Solution81 s = new Solution81();
+        System.out.println(s.search(new int[] {1,0,1,1,1}, 0));
     }
 }

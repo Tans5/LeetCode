@@ -27,6 +27,8 @@ public class QuickSort {
         if (start >= end)
             return;
 
+        int midIndex = (start + end) / 2;
+        swap(nums, midIndex, start);
         int base = nums[start];
         int i = start;
         int j = end;

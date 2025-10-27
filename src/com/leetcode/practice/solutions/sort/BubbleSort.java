@@ -13,8 +13,8 @@ public class BubbleSort {
 
     public static void sort(int[] nums) {
         int temp;
-        for (int sortedLen = 0; sortedLen < nums.length; sortedLen ++) {
-            for (int i = 0; i < nums.length - sortedLen - 1; i ++) {
+        for (int sortedLen = 1; sortedLen <= nums.length; sortedLen ++) {
+            for (int i = 0; i <= nums.length - sortedLen - 1; i ++) {
                 if (nums[i] > nums[i + 1]) {
                     temp = nums[i];
                     nums[i] = nums[i + 1];

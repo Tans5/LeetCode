@@ -11,42 +11,28 @@ import com.leetcode.practice.solutions.others.ListNode;
 public class Solution92 {
 
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        if (head == null || left == right) {
-            return head;
-        }
-        ListNode startNode = head;
-        ListNode previous = null;
-        for (int i = 0; i < left - 1; i ++) {
-            previous = startNode;
-            startNode = startNode.next;
-        }
-        ListNode reverseRoot = reverse(startNode, right - left + 1);
-        if (left <= 1) {
-            return reverseRoot;
-        } else {
-            previous.next = reverseRoot;
-            return head;
-        }
-    }
-
-
-    private ListNode reverse(ListNode start, int count) {
-        if (start == null) {
-            return null;
-        }
-        ListNode previous = null;
-        ListNode cursor = start;
-        ListNode temp;
-        for (int i = 0; i < count; i ++) {
-            temp = cursor;
-            if (temp == null) {
-                break;
-            }
+        ListNode result = new ListNode();
+        ListNode resultCursor = result;
+        ListNode cursor = head;
+        for (int i = 1; i < left; i ++) {
+            ListNode temp = cursor;
             cursor = cursor.next;
-            temp.next = previous;
-            previous = temp;
+            temp.next = null;
+            resultCursor.next = temp;
+            resultCursor = temp;
         }
-        start.next = cursor;
-        return previous;
+        ListNode pre = null;
+        ListNode revertLast = cursor;
+        for (int i = 0; i < right - left + 1; i ++) {
+            ListNode temp = cursor;
+            cursor = cursor.next;
+            temp.next = pre;
+            pre = temp;
+        }
+        resultCursor.next = pre;
+        if (revertLast != null) {
+            revertLast.next = cursor;
+        }
+        return result.next;
     }
 }

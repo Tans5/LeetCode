@@ -8,49 +8,12 @@ import com.leetcode.practice.solutions.others.ListNode;
 public class Solution160 {
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null) {
-            return null;
-        }
-        int listALen = nodeLen(headA);
-        int listBLen = nodeLen(headB);
         ListNode cursorA = headA;
         ListNode cursorB = headB;
-        if (listALen > listBLen) {
-            cursorA = moveLen(headA, listALen - listBLen);
+        while (cursorA != cursorB) {
+            cursorA = cursorA == null ? headA : cursorA.next;
+            cursorB = cursorB == null ? headB : cursorB.next;
         }
-        if (listBLen > listALen) {
-            cursorB = moveLen(headB, listBLen - listALen);
-        }
-
-        while (cursorA != null) {
-            if (cursorA == cursorB) {
-                return cursorB;
-            } else {
-                cursorA = cursorA.next;
-                cursorB = cursorB.next;
-            }
-        }
-        return null;
-    }
-
-    private int nodeLen(ListNode root) {
-        ListNode cursor = root;
-        int len = 0;
-        while (cursor != null) {
-            cursor = cursor.next;
-            len ++;
-        }
-        return len;
-    }
-
-    private ListNode moveLen(ListNode root, int moveLen) {
-        ListNode cursor = root;
-        for (int i = 0; i < moveLen; i ++) {
-            if (cursor == null) {
-                break;
-            }
-            cursor = cursor.next;
-        }
-        return cursor;
+        return cursorA;
     }
 }
